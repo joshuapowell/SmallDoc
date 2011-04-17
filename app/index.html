@@ -27,7 +27,7 @@
 			$(document).ready(function() {
 				
 				if (!localStorage.getItem('docFileCount')) {
-					$("#page-list ul").after('<p class="first-time"><a href="#" id="button-add-first"><span>+</span><br />Create your first note</p>');
+					$("#page-list #first-time").show();
 				}
 			
 				for (i = 1; i <= localStorage.getItem('docFileCount'); i++) {
@@ -96,6 +96,7 @@
 		<section id="page-list">
 			<ul>
 			</ul>
+			<p id="first-time" class="hide"><a href="#" id="button-add-first"><span>+</span><br />Create your first note</p>
 		</section>
 
 		<section id="page-edit">
