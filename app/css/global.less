@@ -1,0 +1,129 @@
+
+/* Layout
+-------------------------------------------------------------- */
+body {
+	background-color: #C5CCD3;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+header {
+	background-color: transparent;
+	background-image: url("../img/bgHeader.png");
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	border-bottom: 1px solid #2E3744;
+	margin: 0 0 0 -10px;
+	min-height: 44px;
+	padding: 0;
+}
+
+footer{
+	color: #929599;
+	font-size: 0.7em;
+	a {
+		color: #929599;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.hide {
+	display: none;
+}
+
+
+
+/* Typography
+-------------------------------------------------------------- */
+h1 {
+	color: #FFFFFF;
+	font-size: 20px;
+	font-weight: bold;
+	left: 50%;
+	line-height: 30px;
+	margin: 2px 0 0 -24%;
+	overflow: hidden;
+	padding: 5px 0;
+	position: absolute;
+	text-align: center;
+	text-shadow: 0 -1px 0 #2D3642;
+	top: 0;
+	white-space: nowrap;
+	width:49%;
+}
+
+ul{
+	background: #FFFFFF;
+	border: 1px solid #B4B4B4;
+	border-bottom-left-radius: 8px 8px;
+	border-bottom-right-radius: 8px 8px;
+	border-top-left-radius: 8px 8px;
+	border-top-right-radius: 8px 8px;
+	color: #101010;
+	font-size: 17px;
+	font-weight: bold;
+	left: 50%;
+	line-height: normal;
+	margin: 15px 10px 17px 0;
+	padding: 0;
+	li{
+		border-top: 1px solid #B4B4B4;
+		color: #666666;
+		list-style-type: none;
+		padding: 10px;
+		&:first-child{
+			border-top: 0px;
+			border-top-left-radius: 8px 8px;
+			border-top-right-radius: 8px 8px;
+		}
+		a {
+			color: #000000;
+			display: block;
+			margin: -10px;
+			overflow: hidden;
+			padding: 12px 10px;
+			text-decoration: none;
+			white-space: nowrap;
+		}
+	}
+}
+
+
+/* Form
+-------------------------------------------------------------- */
+form{
+	padding:0 20px 0 0;
+	label{
+		color: #0C0C0C;
+		display: block;
+		font-weight: bold;
+		margin: 0px;
+		padding: 0px;
+		text-shadow: 0px 1px 0px #FFFFFF;
+	}
+	input[type=text]{
+		display: inline-block;
+		font-size: 1.5em;
+		margin-left: 0;
+		padding: 0 4px;
+		resize: none;
+		width: 100%;
+		&:focus {
+			outline: 0;
+		}
+	}
+	textarea{
+		display: inline-block;
+		font-size: 1.2em;
+		margin-left: 0;
+		padding: 0 4px;
+		resize: none;
+		width: 100%;
+		&:focus {
+			outline: 0;
+		}
+	}
+}
