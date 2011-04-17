@@ -83,24 +83,32 @@ body {
   background-position: 0 0;
   background-repeat: repeat;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: 0 0 0 10px;
+  margin: 0;
+  overflow: hidden;
   padding: 0;
 }
 header {
   background-color: transparent;
-  background-image: url("../img/bgHeader.png");
+  background-image: url("../img/backgrounds.png");
   background-repeat: repeat-x;
-  background-position: 0 0;
+  background-position: 0 -30px;
   border-bottom: 1px solid #2E3744;
-  margin: 0 0 0 -10px;
+  margin: 0;
   min-height: 44px;
   padding: 0;
 }
+section {
+  float: left;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
 footer {
   background-color: transparent;
-  background-image: url("../img/bgHeader.png");
+  background-image: url("../img/backgrounds.png");
   background-repeat: repeat-x;
-  background-position: 0 0;
+  background-position: 0 -30px;
   border-top: 1px solid #2E3744;
   bottom: 0;
   left: 0;
@@ -143,8 +151,9 @@ ul {
   font-weight: bold;
   left: 50%;
   line-height: normal;
-  margin: 15px 10px 17px 0;
+  margin: 15px auto 17px;
   padding: 0;
+  width: 98%;
 }
 ul li {
   border-top: 1px solid #B4B4B4;
@@ -169,7 +178,9 @@ ul li a {
 /* Form
 -------------------------------------------------------------- */
 form {
-  padding: 0 20px 0 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 form label {
   color: #0C0C0C;
@@ -180,10 +191,12 @@ form label {
   text-shadow: 0px 1px 0px #FFFFFF;
 }
 form input[type=text] {
+  border: 0;
+  border-bottom: 1px solid #CCCCCC;
   display: inline-block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.5em;
-  margin-left: 0;
+  margin: 0;
   padding: 6px;
   resize: none;
   width: 100%;
@@ -192,10 +205,11 @@ form input[type=text]:focus {
   outline: 0;
 }
 form textarea {
+  border: 0;
   display: inline-block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.2em;
-  margin-left: 0;
+  margin: 0;
   padding: 6px;
   resize: none;
   width: 100%;

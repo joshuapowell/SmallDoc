@@ -17,8 +17,7 @@
 		<link rel="apple-touch-startup-image" href="img/bgStartup.png" />
 	    <link rel="apple-touch-icon" href="img/appIcon.png"/>
 
-		<link rel="stylesheet" href="css/global.css?qskerjf" />
-		<link rel="stylesheet" href="css/index.css?qskerjf" />
+		<link rel="stylesheet" href="css/index.css" />
 
 		<!-- jQuery & JavaScript -->
 		<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
@@ -26,19 +25,23 @@
 		<script src="js/global.js"></script>
 	</head>
 	<body>
-
-		<header>
-			<h1>SmallDoc</h1>
-			<a class="button" id="button-save" href="#" title="Save this document">Save</a>
-		</header>
 		
-		<section id="page-list">
+		<section id="page-list" class="page">
+			<header>
+				<h1>SmallDoc</h1>
+				<a class="button" id="button-edit" href="#" title="Edit document list">Edit</a>
+			</header>
 			<ul>
+				<li><a href="">Test</a></li>
 			</ul>
 			<p id="first-time" class="hide"><a href="#" id="button-add-first"><span>+</span><br />Create your first note</a></p>
 		</section>
 
-		<section id="page-edit">
+		<section id="page-edit" class="page">
+			<header>
+				<h1>Just another title</h1>
+				<a class="button" id="button-save" href="#" title="Save this document">Save</a>
+			</header>
 			<form action="/" accept-charset="UTF-8" method="post" id="com-smalldoc">
 				<p>
 					<label for="title" class="hide">Title:</label>
@@ -46,11 +49,12 @@
 				</p>
 				
 				<p>
-					<label for="content" class="hide">Content:</label>
-					<textarea rows="10" name="content" id="content"></textarea>
+					<label for="body" class="hide">Content:</label>
+					<textarea rows="10" name="body" id="body"></textarea>
 				</p>
 	
 				<input type="hidden" id="existing" value="" />
+				<input type="hidden" name="uuid" id="uuid" value="" />
 				<input type="submit" id="submit" value="Save" />
 				<input type="button" id="cancel" value="Cancel" />
 			</form>
@@ -60,7 +64,7 @@
 			<a id="button-remove" href="#" title="Delete a document">delete</a>
 			<a id="button-update" href="#" title="Updated a document">update</a>
 			<a id="button-view" href="#" title="View a document">view</a>
-			<a id="button-add" href="#" title="Add a new document">add</a>
+			<a id="button-create" class="button create" href="#" title="Add a new document"><span>add</span></a>
 		</footer>
 
 	</body>

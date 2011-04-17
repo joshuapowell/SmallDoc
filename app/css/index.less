@@ -41,36 +41,52 @@
 }
 
 .button {
-    position: absolute;
-    overflow: hidden;
-    top: 8px;
-    right: 6px;
-    margin: 0;
-    border-width: 0 5px;
-    padding: 0 3px;
-    width: auto;
-    height: 30px;
-    line-height: 30px;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
-    text-overflow: ellipsis;
-    text-decoration: none;
-    white-space: nowrap;
-    background: none;
-    -webkit-border-image: url(../img/toolButton.png) 0 5 0 5;
+	background-color: #385588;
+	background-image: url("../img/backgrounds.png");
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	border-color: #233354;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	color: #FFFFFF;
+	float: right;
+	font-size: 0.7em;
+	margin: 8px;
+	padding: 5px 8px;
+	text-decoration: none;
+	text-shadow: 1px -1px 0 #516075;
+	height: 16px;
+	&:active, &:hover, &:focus {
+		background-position: 0 -79px;
+		border-color: #1532A5;
+	}
+}
+.button.create {
+	height: 18px;
+	margin: 7px 5px 5px;
+	padding: 5px 5px 6px 6px;
+	text-indent: -999999px;
+	width: 20px;
+}
+.create span {
+	background-image: url("../img/buttons.png");
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	float: left;
+	height: 20px;
+	text-indent: -999999px;
+	width: 20px;
 }
 
 
 /* Pages
 -------------------------------------------------------------- */
 #page-list {
-
 }
 
 #page-edit{
-	.hide;
 }
 
