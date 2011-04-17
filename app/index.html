@@ -35,10 +35,18 @@
 				<li><a href="">Test</a></li>
 			</ul>
 			<p id="first-time" class="hide"><a href="#" id="button-add-first"><span>+</span><br />Create your first note</a></p>
+
+			<footer>
+				<a id="button-remove" class="hide" href="#" title="Delete a document">delete</a>
+				<a id="button-update" class="hide" href="#" title="Updated a document">update</a>
+				<a id="button-view" class="hide" href="#" title="View a document">view</a>
+				<a id="button-create" class="button create" href="#" title="Add a new document"><span>add</span></a>
+			</footer>
 		</section>
 
 		<section id="page-edit" class="page">
 			<header>
+				<a class="button left" id="button-cancel" href="#" title="Cancel changes to this document">Cancel</a>
 				<h1>Just another title</h1>
 				<a class="button" id="button-save" href="#" title="Save this document">Save</a>
 			</header>
@@ -55,17 +63,8 @@
 	
 				<input type="hidden" id="existing" value="" />
 				<input type="hidden" name="uuid" id="uuid" value="" />
-				<input type="submit" id="submit" value="Save" />
-				<input type="button" id="cancel" value="Cancel" />
 			</form>
 		</section>
 	
-		<footer>
-			<a id="button-remove" href="#" title="Delete a document">delete</a>
-			<a id="button-update" href="#" title="Updated a document">update</a>
-			<a id="button-view" href="#" title="View a document">view</a>
-			<a id="button-create" class="button create" href="#" title="Add a new document"><span>add</span></a>
-		</footer>
-
 	</body>
 </html>
