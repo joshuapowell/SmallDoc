@@ -1,20 +1,13 @@
-/* Reset from Blueprint CSS Framework 1.0 (http://blueprintcss.org)
-
-   * Copyright (c) 2007-Present. See LICENSE for more info.
-   * See README for instructions on how to use Blueprint.
-   * For credits and origins, see AUTHORS.
-   * This is a compressed file. See the sources in the 'src' directory.
+/* Reset
 ------------------------------------------------------------------------------------ */
-html {
-  border: 0;
-  margin: 0;
-  padding: 0;
+body {
+  background-color: #FFFFFF;
+  line-height: 1.5;
 }
+html,
 body,
 div,
 span,
-object,
-iframe,
 h1,
 h2,
 h3,
@@ -22,21 +15,12 @@ h4,
 h5,
 h6,
 p,
-blockquote,
 pre,
 a,
-abbr,
-acronym,
-address,
 code,
 del,
-dfn,
 em,
 img,
-q,
-dl,
-dt,
-dd,
 ol,
 ul,
 li,
@@ -54,15 +38,13 @@ th,
 td,
 article,
 aside,
-dialog,
-figure,
 footer,
 header,
 hgroup,
 nav,
 section {
   border: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: inherit;
   font-size: 100%;
   font-weight: inherit;
@@ -72,8 +54,6 @@ section {
 }
 article,
 aside,
-dialog,
-figure,
 footer,
 header,
 hgroup,
@@ -81,35 +61,18 @@ nav,
 section {
   display: block;
 }
-body {
-  background-color: #FFFFFF;
-  line-height: 1.5;
-}
 table {
   border-collapse: separate;
   border-spacing: 0;
 }
-caption, th, td {
-  float: none !important;
-  font-weight: normal;
+table caption, table th, table td {
   text-align: left;
-}
-table, th, td {
   vertical-align: middle;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-}
-blockquote, q {
-  quotes: "" "";
 }
 a img {
   border: none;
 }
-:focus {
+a:focus {
   outline: 0;
 }
 /* Layout
