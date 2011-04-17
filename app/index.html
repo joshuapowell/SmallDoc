@@ -13,85 +13,23 @@
 
         <title>SmallDoc</title>
 
-		<!-- CSS -->
+		<!-- CSS & Device specific elements -->
 		<link rel="apple-touch-startup-image" href="img/bgStartup.png" />
 	    <link rel="apple-touch-icon" href="img/appIcon.png"/>
 
 		<link rel="stylesheet" href="css/global.css?qskerjf" />
 		<link rel="stylesheet" href="css/index.css?qskerjf" />
 
-		<!-- jQuery, Prototype & JavaScript -->
+		<!-- jQuery & JavaScript -->
 		<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-		<script type="text/javascript">
-	
-			$(document).ready(function() {
-				
-				if (!localStorage.getItem('docFileCount')) {
-					$("#page-list #first-time").show();
-				}
-			
-				for (i = 1; i <= localStorage.getItem('docFileCount'); i++) {
-
-					if (localStorage.getItem("doc" + i + "_title") != '' && localStorage.getItem("doc" + i + "_title") != 0) {
-						$("#page-list ul").append('<li><a id="item_' + i + '" href="#">' + localStorage.getItem("doc" + i + "_title") + '</a></li>');
-					}
-
-				}
-			
-				function loadDocData(id) {
-					
-					$("#existing").val(id);
-					$("#title").val(localStorage.getItem("doc" + id + "_title"));
-					$("#content").val(localStorage.getItem("doc" + id + "_content"));
-
-				}
-
-				$("#submit").click(function() {
-					
-					if ($("#existing").val()) {
-
-						var id = $("#existing").val();
-	
-					} else {
-
-						var submitCount = localStorage.getItem('docFileCount');
-						var id = Number(submitCount) + 1;
-
-						localStorage.setItem('docFileCount', id);
-					}
-
-						localStorage.setItem("doc" + id + "_title", $("#title").val());
-						localStorage.setItem("doc" + id + "_content", $("#content").val());
-										
-				});
-				
-				$("#page-list ul li a").click(function () {
-					var id = $(this).attr("id").replace("item_","");
-					
-					$("#page-list, #page-edit, #button-add").toggle();
-					loadDocData(id);
-				});
-				
-				$("#button-add, #button-add-first").click(function() {
-					$("#page-list, #page-edit, #button-add").toggle();
-					$("#content, #title").val("");
-				});
-				
-				$("#cancel").click(function() {
-					$("#page-list, #page-edit, #button-add").toggle();
-				});
-
-			});
- 
- 		</script>
-
+		<script src="js/storage.js"></script>
+		<script src="js/global.js"></script>
 	</head>
 	<body>
 
 		<header>
-			<a class="button" href="#" title="Cancel changes">Cancel</a>
 			<h1>SmallDoc</h1>
-			<a class="button" href="#" title="Save this document">Save</a>
+			<a class="button" id="button-save" href="#" title="Save this document">Save</a>
 		</header>
 		
 		<section id="page-list">
@@ -119,7 +57,10 @@
 		</section>
 	
 		<footer>
-			<a id="button-add" href="#" title="Add a new document">+</a>
+			<a id="button-remove" href="#" title="Delete a document">delete</a>
+			<a id="button-update" href="#" title="Updated a document">update</a>
+			<a id="button-view" href="#" title="View a document">view</a>
+			<a id="button-add" href="#" title="Add a new document">add</a>
 		</footer>
 
 	</body>
