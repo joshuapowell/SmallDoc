@@ -18,9 +18,7 @@ $(document).ready(function() {
 		storage.removeDocument($("#uuid").val());
 	});
 
-	$("#button-view").click(function () {
-		var uuid = '';
-		storage.viewDocument(uuid);
-	});
+	var uuid = '';
+    storage.viewDocument('all');
 
 });

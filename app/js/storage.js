@@ -9,7 +9,7 @@
 	/**
 	 * Define an empty localStorage variable for us to use.
 	 */
-	var localStorage = '';
+	//var localStorage = '';
 	
 	
 	/**
@@ -87,16 +87,33 @@
 	
 		if (uuid == 'make') {
 			// Create a new UUID for this document
-			this.createUUID();
+			var uuid = this.createUUID();
 		}
+
+		var setKey  = 'com.smalldoc.storage.' + parseInt(localStorage.length);
+		var setTime = jQuery.now();
 	
 		// Make double sure we have a UUID or else our data will be lost
 		if (uuid) {
+
 			// Create a JSON object based on #title (documentTitle) & #body (documentBody)
-			var documentObjectStore = '{"title":"' + documentTitle + '","body":"' + documentBody + '"}';
-	
-			// Save the UUID & JSON object to localStorage
-			localStorage.setItem(uuid, documentObjectStore);
+			var documentObjectStore = '{' +
+				'"uuid":"' + uuid + '",' +
+				'"title":"' + documentTitle + '",' +
+				'"body":"' + documentBody + '",' +
+				'"geo":"' + '' + '",' +
+				'"created":"' + setTime + '",' +
+				'"updated":"' + setTime + '"' +
+			'}';
+
+			try {
+				// Save the UUID & JSON object to localStorage
+				localStorage.setItem(setKey, documentObjectStore);
+			} catch (error) {
+				if (error == QUOTA_EXCEEDED_ERR) {
+					this.setMessage('Quota exceeded!');
+				}
+			}
 	
 			// Let us know our document is saved in the Javascript Console
 			this.setMessage("A new document was created");
@@ -183,14 +200,28 @@
 	 *   @todo
 	 *      Determine how we are going to return this value .. array? HTML?
 	 */
-	SD_Storage.prototype.viewDocument = function( uuid ) {
-		if (uuid) {
-			var doc = jQuery.parseJSON(localStorage.getItem(uuid));
-			this.setMessage("Content from " + doc.title + " > " + doc.body);
+	SD_Storage.prototype.viewDocument = function( type, uuid ) {
+
+		switch (type) {
+			case 'single':
+				if (uuid) {
+					var doc = jQuery.parseJSON(localStorage.getItem(uuid));
+					this.setMessage("Content from " + doc.title + " > " + doc.body);
+				}
+				break;
+			case 'all':
+				var totalDocuments = localStorage.length;
+				this.setMessage('We currently have ' + totalDocuments + ' items saved');
+				for (counter = 1; counter <= localStorage; counter++) {
+					alert(localStorage.getItem('com.smalldoc.storage.' + counter));
+				}
+				this.setMessage('Document ' + totalDocuments + " says " + localStorage);
+				break;
 		}
+
 	}
-	
-	
+
+
 	/**
 	 * Create a UUID or a Universally Unique Indentifier for our document
 	 *
@@ -204,7 +235,7 @@
 	 *
 	 * @return
 	 *   Generates a random 20 character hex string in the format of:
-	 *   00000000-0000-0000-0000-000000000000
+	 *   com.smalldoc.storage.00000000-0000-0000-0000-000000000000
 	 */
 	SD_Storage.prototype.createUUID = function() {
 	
@@ -213,6 +244,22 @@
 		};
 	
 		return (UUID()+UUID()+"-"+UUID()+"-"+UUID()+"-"+UUID()+"-"+UUID()+UUID()+UUID());
+	}
+
+
+	/**
+	 * Retrieve the GeoLocation of the user and save that data to their document
+	 *
+	 * @return
+	 *   Generate a JSON object and save the current GeoLocation of the user
+	* @todo
+	*   Make this work. For more information:
+	 *   @see http://html5demos.com/geo#view-source
+	 */
+	SD_Storage.prototype.getPosition = function( location ) {
+		if (avigator.geolocation) {
+			var geoDocument = '{"lat":"' + location.coords.latitude + '","long":"' + location.coords.longitude + '"}';
+		}
 	}
 
 })(jQuery);
