@@ -1,20 +1,24 @@
 <!DOCTYPE html>
+
 <html manifest="smalldoc.manifest">
+
 	<head>
-        <title>SmallDoc</title>
         <meta charset="utf-8">
         <meta name="description" content="Simple note taking for your browser or mobile device">
         
-
 	    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
 	
 	    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	    <link rel="apple-touch-icon" href="img/appIcon.png"/>
+
+        <title>SmallDoc</title>
 
 		<!-- CSS -->
 		<link rel="apple-touch-startup-image" href="img/bgStartup.png" />
-		<link rel="stylesheet" href="css/main.css" />
+	    <link rel="apple-touch-icon" href="img/appIcon.png"/>
+
+		<link rel="stylesheet" href="css/global.css" />
+		<link rel="stylesheet" href="css/index.css?3" />
 
 		<!-- jQuery, Prototype & JavaScript -->
 		<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
@@ -23,13 +27,13 @@
 			$(document).ready(function() {
 				
 				if (!localStorage.getItem('docFileCount')) {
-					$("ul.docList").after('<p class="first-time"><a href="#" id="addFirst"><span>+</span><br />Create your first note</p>');
+					$("#page-list ul").after('<p class="first-time"><a href="#" id="button-add-first"><span>+</span><br />Create your first note</p>');
 				}
 			
 				for (i = 1; i <= localStorage.getItem('docFileCount'); i++) {
 
 					if (localStorage.getItem("doc" + i + "_title") != '' && localStorage.getItem("doc" + i + "_title") != 0) {
-						$("ul.docList").append('<li><a id="item_' + i + '" href="#">' + localStorage.getItem("doc" + i + "_title") + '</a></li>');
+						$("#page-list ul").append('<li><a id="item_' + i + '" href="#">' + localStorage.getItem("doc" + i + "_title") + '</a></li>');
 					}
 
 				}
@@ -61,20 +65,20 @@
 										
 				});
 				
-				$("ul.docList li a").click(function () {
+				$("#page-list ul li a").click(function () {
 					var id = $(this).attr("id").replace("item_","");
 					
-					$(".list,.edit,#addNew").toggle();
+					$("#page-list, #page-edit, #button-add").toggle();
 					loadDocData(id);
 				});
 				
-				$("#addNew,#addFirst").click(function() {
-					$(".list,.edit,#addNew").toggle();
-					$("#content,#title").val("");
+				$("#button-add, #button-add-first").click(function() {
+					$("#page-list, #page-edit, #button-add").toggle();
+					$("#content, #title").val("");
 				});
 				
 				$("#cancel").click(function() {
-					$(".list,.edit,#addNew").toggle();
+					$("#page-list, #page-edit, #button-add").toggle();
 				});
 
 			});
@@ -84,39 +88,37 @@
 	</head>
 	<body>
 
-		<div class="header">
+		<header>
 			<h1>SmallDoc</h1>
-			<a id="addNew" href="#">+</a>
-		</div>
+			<a id="button-add" href="#" title="Add a new document">+</a>
+		</header>
 		
-		<div class="list">
-			<ul class="docList">
+		<section id="page-list">
+			<ul>
 			</ul>
-		</div>
+		</section>
 
-		<div class="edit">
-			<form id="app">
-				
-				<input type="hidden" id="existing" value="" />
-				
+		<section id="page-edit">
+			<form action="/" accept-charset="UTF-8" method="post" id="com-smalldoc">
 				<p>
-					<label for="title">Title:</label>
+					<label for="title" class="hide">Title:</label>
 					<input type="text" name="title" id="title" />
 				</p>
 				
 				<p>
-					<label for="content">Content:</label>
+					<label for="content" class="hide">Content:</label>
 					<textarea rows="10" name="content" id="content"></textarea>
 				</p>
 	
+				<input type="hidden" id="existing" value="" />
 				<input type="submit" id="submit" value="Save" />
 				<input type="button" id="cancel" value="Cancel" />
 			</form>
-		</div>
+		</section>
 	
-		<div class="footer">
-			<p>A product of <a href="http://www.dvsmpl.com/" target="_blank">Developed Simple</a></p>
-		</div>
+		<footer>
+			<!-- All empty for now -->
+		</footer>
 
 	</body>
 </html>
