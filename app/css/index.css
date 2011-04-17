@@ -1,7 +1,124 @@
+/* Reset from Blueprint CSS Framework 1.0 (http://blueprintcss.org)
+
+   * Copyright (c) 2007-Present. See LICENSE for more info.
+   * See README for instructions on how to use Blueprint.
+   * For credits and origins, see AUTHORS.
+   * This is a compressed file. See the sources in the 'src' directory.
+------------------------------------------------------------------------------------ */
+html {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+code,
+del,
+dfn,
+em,
+img,
+q,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  border: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+body {
+  background-color: #FFFFFF;
+  line-height: 1.5;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption, th, td {
+  float: none !important;
+  font-weight: normal;
+  text-align: left;
+}
+table, th, td {
+  vertical-align: middle;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+}
+blockquote, q {
+  quotes: "" "";
+}
+a img {
+  border: none;
+}
+:focus {
+  outline: 0;
+}
 /* Layout
 -------------------------------------------------------------- */
 body {
   background-color: #C5CCD3;
+  background-image: url("../img/pinstripes.png");
+  background-position: 0 0;
+  background-repeat: repeat;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0 0 0 10px;
   padding: 0;
@@ -17,14 +134,18 @@ header {
   padding: 0;
 }
 footer {
-  color: #929599;
-  font-size: 0.7em;
-}
-footer a {
-  color: #929599;
-}
-footer a:hover {
-  text-decoration: none;
+  background-color: transparent;
+  background-image: url("../img/bgHeader.png");
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  border-top: 1px solid #2E3744;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  min-height: 44px;
+  padding: 0;
+  position: fixed;
+  width: 100%;
 }
 .hide {
   display: none;
@@ -97,9 +218,10 @@ form label {
 }
 form input[type=text] {
   display: inline-block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.5em;
   margin-left: 0;
-  padding: 0 4px;
+  padding: 6px;
   resize: none;
   width: 100%;
 }
@@ -108,9 +230,10 @@ form input[type=text]:focus {
 }
 form textarea {
   display: inline-block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.2em;
   margin-left: 0;
-  padding: 0 4px;
+  padding: 6px;
   resize: none;
   width: 100%;
 }
@@ -153,6 +276,28 @@ form textarea:focus {
   text-decoration: none;
   text-shadow: 0 -1px 0 #2d3642;
   top: 3px;
+}
+.button {
+  position: absolute;
+  overflow: hidden;
+  top: 8px;
+  right: 6px;
+  margin: 0;
+  border-width: 0 5px;
+  padding: 0 3px;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  white-space: nowrap;
+  background: none;
+  -webkit-border-image: url(../img/toolButton.png) 0 5 0 5;
 }
 /* Pages
 -------------------------------------------------------------- */
