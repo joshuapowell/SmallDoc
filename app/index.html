@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html manifest="smalldoc.manifest">
+	<head>
+        <title>SmallDoc</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Simple note taking for your browser or mobile device">
+        
+
+	    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	    <meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	    <link rel="apple-touch-icon" href="img/appIcon.png"/>
+
+		<!-- CSS -->
+		<link rel="apple-touch-startup-image" href="img/bgStartup.png" />
+		<link rel="stylesheet" href="css/main.css" />
+
+		<!-- jQuery, Prototype & JavaScript -->
+		<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript">
+	
+			$(document).ready(function() {
+				
+				if (!localStorage.getItem('docFileCount')) {
+					$("ul.docList").after('<p class="first-time"><a href="#" id="addFirst"><span>+</span><br />Create your first note</p>');
+				}
+			
+				for (i = 1; i <= localStorage.getItem('docFileCount'); i++) {
+
+					if (localStorage.getItem("doc" + i + "_title") != '' && localStorage.getItem("doc" + i + "_title") != 0) {
+						$("ul.docList").append('<li><a id="item_' + i + '" href="#">' + localStorage.getItem("doc" + i + "_title") + '</a></li>');
+					}
+
+				}
+			
+				function loadDocData(id) {
+					
+					$("#existing").val(id);
+					$("#title").val(localStorage.getItem("doc" + id + "_title"));
+					$("#content").val(localStorage.getItem("doc" + id + "_content"));
+
+				}
+
+				$("#submit").click(function() {
+					
+					if ($("#existing").val()) {
+
+						var id = $("#existing").val();
+	
+					} else {
+
+						var submitCount = localStorage.getItem('docFileCount');
+						var id = Number(submitCount) + 1;
+
+						localStorage.setItem('docFileCount', id);
+					}
+
+						localStorage.setItem("doc" + id + "_title", $("#title").val());
+						localStorage.setItem("doc" + id + "_content", $("#content").val());
+										
+				});
+				
+				$("ul.docList li a").click(function () {
+					var id = $(this).attr("id").replace("item_","");
+					
+					$(".list,.edit,#addNew").toggle();
+					loadDocData(id);
+				});
+				
+				$("#addNew,#addFirst").click(function() {
+					$(".list,.edit,#addNew").toggle();
+					$("#content,#title").val("");
+				});
+				
+				$("#cancel").click(function() {
+					$(".list,.edit,#addNew").toggle();
+				});
+
+			});
+ 
+ 		</script>
+
+	</head>
+	<body>
+
+		<div class="header">
+			<h1>SmallDoc</h1>
+			<a id="addNew" href="#">+</a>
+		</div>
+		
+		<div class="list">
+			<ul class="docList">
+			</ul>
+		</div>
+
+		<div class="edit">
+			<form id="app">
+				
+				<input type="hidden" id="existing" value="" />
+				
+				<p>
+					<label for="title">Title:</label>
+					<input type="text" name="title" id="title" />
+				</p>
+				
+				<p>
+					<label for="content">Content:</label>
+					<textarea rows="10" name="content" id="content"></textarea>
+				</p>
+	
+				<input type="submit" id="submit" value="Save" />
+				<input type="button" id="cancel" value="Cancel" />
+			</form>
+		</div>
+	
+		<div class="footer">
+			<p>A product of <a href="http://www.dvsmpl.com/" target="_blank">Developed Simple</a></p>
+		</div>
+
+		<script type="text/javascript">
+		
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-3044060-7']);
+		  _gaq.push(['_trackPageview']);
+		
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+
+	</body>
+</html>
