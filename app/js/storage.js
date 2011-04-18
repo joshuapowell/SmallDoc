@@ -5,11 +5,14 @@
 
 (function($) {
 
-
 	/**
-	 * Define an empty localStorage variable for us to use.
+	 * WARNING:
+	 *
+	 * Do not define an empty localStorage variable to use. It will
+	 * break everything and make you very sad.
+	 *
+	 * var localStorage = ''; BAD
 	 */
-	//var localStorage = '';
 	
 	
 	/**
@@ -22,7 +25,46 @@
 	 * should be set to false before deploying the application.
 	 */
 	var console_message = true;
-	
+
+
+	/**
+	 * Define the namespace to append to our UUID to ensure we
+	 * are not pulling incorrect data.
+	 *
+	 * Handles the display of data being served to our edit & list
+	 * pages and ensures we are only display application specific 
+	 * document data.
+	 */
+	var documentNamespace = 'com.smalldoc.storage.';
+
+
+	/**
+	 * Define the various page variables
+	 *
+	 * Defines the pages of the application and the unique ID of
+	 * each page, do be used for toggling between list & edit view
+	 */
+	var page = new Array(
+		'#page-list',
+		'#page-edit'
+	);
+
+	var pages = page.join(", ");
+
+
+	/**
+	 * Define the various form field variables
+	 *
+	 * Defines the fields of the application and the unique ID of
+	 * each form field. Used for document editing & creation.
+	 */
+	var field = new Array(
+		'#title',
+		'#body',
+		'#uuid'
+	);
+
+	var fields = field.join(", ");
 	
 	/**
 	 * Define our SmallDoc Storage Object
@@ -83,49 +125,72 @@
 	 *   and the data will be compiled & stored as a JSON object
 	 *   as the localStorage Value
 	 */
-	SD_Storage.prototype.createDocument = function( uuid, documentTitle, documentBody ) {
+	SD_Storage.prototype.saveDocument = function( uuid, documentTitle, documentBody ) {
 	
-		if (uuid == 'make') {
-			// Create a new UUID for this document
-			var uuid = this.createUUID();
-		}
+		// Define Variables
+		var getTime = jQuery.now();
 
-		var setKey  = 'com.smalldoc.storage.' + parseInt(localStorage.length);
-		var setTime = jQuery.now();
-	
 		// Make double sure we have a UUID or else our data will be lost
-		if (uuid) {
-
-			// Create a JSON object based on #title (documentTitle) & #body (documentBody)
-			var documentObjectStore = '{' +
-				'"uuid":"' + uuid + '",' +
-				'"title":"' + documentTitle + '",' +
-				'"body":"' + documentBody + '",' +
-				'"geo":"' + '' + '",' +
-				'"created":"' + setTime + '",' +
-				'"updated":"' + setTime + '"' +
-			'}';
-
-			try {
-				// Save the UUID & JSON object to localStorage
-				localStorage.setItem(setKey, documentObjectStore);
-			} catch (error) {
-				if (error == QUOTA_EXCEEDED_ERR) {
-					this.setMessage('Quota exceeded!');
-				}
-			}
-	
-			// Let us know our document is saved in the Javascript Console
-			this.setMessage("A new document was created");
+		if (uuid == 'make') {
+			var setKey  = documentNamespace + parseInt(localStorage.length);
+			var uuid    = parseInt(localStorage.length);
+			var method  = 'created';
+			this.setMessage('We are creating a new document');
+		} else {
+			var setKey = uuid;
+			var method = 'updated';
+			this.setMessage('We are editing an existing document > ' + uuid);
 		}
 	
+		// Create a JSON object based on #title (documentTitle) & #body (documentBody)
+    	var documentObjectStore = '{' +
+    		'"title":"' + documentTitle + '",' +
+    		'"body":"' + this.checkTextarea(documentBody) + '",' +
+    		'"geo":"' + '' + '",' +
+    		'"created":"' + getTime + '",' +
+    		'"updated":"' + getTime + '"' +
+    	'}';
+
+		try {
+    		// Save the UUID & JSON object to localStorage
+    		localStorage.setItem(setKey, documentObjectStore);
+			alert('Your document was successfully saved');
+    	} catch (error) {
+    		if (error == QUOTA_EXCEEDED_ERR) {
+    			this.setMessage('Quota exceeded!');
+    		}
+    	}
+
+		// If the document is new, then make sure to display it in the Document List view
+		if (method == 'created') {
+			$(page[0] + " ul").append('<li><a id="item_' + uuid + '" href="#">' + documentTitle + '</a></li>');
+		}
+
+		$(pages).toggle();
+
+		// Let us know our document is saved in the Javascript Console
+    	this.setMessage("Document was " + method);
 	}
 	
 	
 	/**
-	 * Update a document saved in localStorage
+	 * Cancel the editing of a document
 	 *
-	 * Update the data of an object, based on the UUID localStorage Key.
+	 * Return the user to the Document List screen and do not save
+	 * the changes to the document being edited.
+	 *
+	 */
+	SD_Storage.prototype.cancelDocument = function() {
+		if (pages) {
+			$(pages).toggle();
+		}
+	}
+
+
+	/**
+	 * Edit a document saved in localStorage
+	 *
+	 * Edit the data of an object, based on the UUID localStorage Key.
 	 * As with viewDocument, we will be saving our data in JSON format
 	 * so that the data retains a usable structure.
 	 *
@@ -144,20 +209,34 @@
 	 *   parameter, and document data will be compiled & stored as a
 	 *   JSON object as the localStorage Value
 	 */
-	SD_Storage.prototype.updateDocument = function( uuid, documentTitle, documentBody ) {
+	SD_Storage.prototype.editDocument = function( uuid ) {
+
+		// Make sure our pages show/hide appopriately
+		$(pages).toggle();
+
+		if ( uuid ) {
+			// Retrieve all our data from the localStorage object & parse JSON to Javascript Array
+			var note = jQuery.parseJSON(localStorage.getItem(documentNamespace + uuid));
 	
-		// Make double sure we have a UUID or else our data will be lost
-		if (uuid) {
-			// Create a JSON object based on #title (documentTitle) & #body (documentBody)
-			var documentObjectStore = '{"title":"' + documentTitle + '","body":"' + documentBody + '"}';
-	
-			// Save the UUID & JSON object to localStorage
-			localStorage.setItem(uuid, documentObjectStore);
+			// Set a hidden field with the value of our UUID for proper saving
+			$(field[2]).val(documentNamespace + uuid);
+
+			// Set the page title to that of the document title
+			$(page[1] + " header h1").text(note.title);
+
+			// Set the form field defaults to that of the saved document
+			$(field[0]).val(note.title);
+			$(field[1]).val(note.body);
 	
 			// Let us know our document is saved in the Javascript Console
-			this.setMessage(documentTitle + " was updated");
+			this.setMessage(note.title + " has been loaded");
+		} else {
+			$(page[1] + " header h1").text('New Document');
+
+			// Double check for empty form fields during creation
+			$('form input, form textarea, form select').val("");
 		}
-	
+						
 	}
 	
 	
@@ -200,25 +279,28 @@
 	 *   @todo
 	 *      Determine how we are going to return this value .. array? HTML?
 	 */
-	SD_Storage.prototype.viewDocument = function( type, uuid ) {
+	SD_Storage.prototype.listDocument = function() {
 
-		switch (type) {
-			case 'single':
-				if (uuid) {
-					var doc = jQuery.parseJSON(localStorage.getItem(uuid));
-					this.setMessage("Content from " + doc.title + " > " + doc.body);
+		var totalDocuments = localStorage.length, n = 0;
+
+		if (totalDocuments <= 0) {
+			this.setMessage("You haven't created any documents yet");
+		} else {
+			// Create an empty list
+			$(page[0] + " header").after('<ul></ul>');
+
+			for (n = 0; n <= totalDocuments; n++) {
+	
+	    		var note = jQuery.parseJSON(localStorage.getItem(documentNamespace + n));
+	
+				try {
+	    			$(page[0] + " ul").append('<li><a id="item_' + n + '" href="#">' + note.title + '</a></li>');
+				} catch (error) {
+					this.setMessage(documentNamespace + n + ' is an empty document');
 				}
-				break;
-			case 'all':
-				var totalDocuments = localStorage.length;
-				this.setMessage('We currently have ' + totalDocuments + ' items saved');
-				for (counter = 1; counter <= localStorage; counter++) {
-					alert(localStorage.getItem('com.smalldoc.storage.' + counter));
-				}
-				this.setMessage('Document ' + totalDocuments + " says " + localStorage);
-				break;
+
+	    	}
 		}
-
 	}
 
 
@@ -252,14 +334,34 @@
 	 *
 	 * @return
 	 *   Generate a JSON object and save the current GeoLocation of the user
-	* @todo
-	*   Make this work. For more information:
+	 * @todo
+	 *   Make this work. For more information:
 	 *   @see http://html5demos.com/geo#view-source
 	 */
 	SD_Storage.prototype.getPosition = function( location ) {
-		if (avigator.geolocation) {
+		if (navigator.geolocation) {
 			var geoDocument = '{"lat":"' + location.coords.latitude + '","long":"' + location.coords.longitude + '"}';
 		}
 	}
+
+
+	/**
+	 * Santize the string to ensure that line breaks & carriage returns are
+	 * being handled properly, so that JSON has the ability to display them.
+	 *
+	 * @param text
+	 *   The string of text to santize for JSON usage
+	 * @return text
+	 *   The final santized string ready for JSON usage
+	 */
+	SD_Storage.prototype.checkTextarea = function( text ) {
+
+		text = text.replace("\r\n", "\n");
+		text = text.replace("\r", "\n");
+
+		// JSON requires new line characters be escaped
+		return text.replace("\n", "\\n");
+	}
+
 
 })(jQuery);

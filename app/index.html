@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="css/index.css" />
 
 		<!-- jQuery & JavaScript -->
-		<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 		<script src="js/storage.js"></script>
 		<script src="js/global.js"></script>
 	</head>
@@ -31,9 +31,6 @@
 				<h1>SmallDoc</h1>
 				<a class="button" id="button-edit" href="#" title="Edit document list">Edit</a>
 			</header>
-			<ul>
-				<li><a href="">Test</a></li>
-			</ul>
 			<p id="first-time" class="hide"><a href="#" id="button-add-first"><span>+</span><br />Create your first note</a></p>
 
 			<footer>
@@ -44,10 +41,10 @@
 			</footer>
 		</section>
 
-		<section id="page-edit" class="page">
+		<section id="page-edit" class="page hide">
 			<header>
 				<a class="button left" id="button-cancel" href="#" title="Cancel changes to this document">Cancel</a>
-				<h1>Just another title</h1>
+				<h1></h1>
 				<a class="button" id="button-submit" href="#" title="Save this document">Save</a>
 			</header>
 			<form action="/" accept-charset="UTF-8" method="post" id="com-smalldoc">
@@ -61,9 +58,13 @@
 					<textarea rows="10" name="body" id="body"></textarea>
 				</p>
 	
-				<input type="hidden" id="existing" value="" />
+				<input type="hidden" id="uuid" name="uuid" value="" />
 				<input type="hidden" name="uuid" id="uuid" value="" />
 			</form>
+			<footer>
+				<a id="button-remove" class="button image remove" href="#" title="Delete this document"><span>delete</span></a>
+				<a id="button-create" class="button image create hide" href="#" title="Add a new document"><span>add</span></a>
+			</footer>
 		</section>
 	
 	</body>
