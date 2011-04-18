@@ -132,14 +132,18 @@
 
 		// Make double sure we have a UUID or else our data will be lost
 		if (uuid == 'make') {
-			var setKey  = documentNamespace + parseInt(localStorage.length);
 			var uuid    = parseInt(localStorage.length);
+			var setKey  = documentNamespace + uuid;
 			var method  = 'created';
 			this.setMessage('We are creating a new document');
 		} else {
 			var setKey = uuid;
 			var method = 'updated';
 			this.setMessage('We are editing an existing document > ' + uuid);
+		}
+
+		if (!documentTitle) {
+			documentTitle = "New Document " + uuid;
 		}
 	
 		// Create a JSON object based on #title (documentTitle) & #body (documentBody)
@@ -166,7 +170,9 @@
 			$(page[0] + " ul").append('<li><a id="item_' + uuid + '" href="#">' + documentTitle + '</a></li>');
 		}
 
-		$(pages).toggle();
+		if (pages) {
+			$(pages).toggle();
+		}
 
 		// Let us know our document is saved in the Javascript Console
     	this.setMessage("Document was " + method);
@@ -212,7 +218,9 @@
 	SD_Storage.prototype.editDocument = function( uuid ) {
 
 		// Make sure our pages show/hide appopriately
-		$(pages).toggle();
+		if (pages) {
+			$(pages).toggle();
+		}
 
 		if ( uuid ) {
 			// Retrieve all our data from the localStorage object & parse JSON to Javascript Array
@@ -258,8 +266,14 @@
 	 */
 	SD_Storage.prototype.removeDocument = function( uuid ) {
 		if (uuid) {
-			localStorage.removeItem(uuid);
-			this.setMessage("The document " + uuid + "was deleted.");
+			var confirmRemoval = confirm("Are you sure that you want to delete this document?");
+			if (confirmRemoval == true) {
+				localStorage.removeItem(uuid);
+				this.setMessage("The document " + uuid + "was deleted.");
+				if (pages) {
+					$(pages).toggle();
+				}
+			}
 		}
 	}
 	
