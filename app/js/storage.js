@@ -271,9 +271,13 @@
 			if (confirmRemoval == true) {
 				localStorage.removeItem(uuid);
 				this.setMessage("The document " + uuid + "was deleted.");
+
+				$("li#item_" + uuid).remove();
+
 				if (pages) {
 					$(pages).toggle();
 				}
+
 			}
 		}
 	}

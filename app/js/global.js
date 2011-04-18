@@ -7,6 +7,7 @@ $(document).ready(function() {
 
 	storage.listDocument();
 
+	// Edit a document from the list
 	$("#page-list ul li a").live('click', function () {
 
 		var uuid = $(this).attr("id").replace("item_","");
@@ -14,15 +15,20 @@ $(document).ready(function() {
 		storage.editDocument(uuid);
 	});
 
-	$("#button-create").click(function () {
+	// Create a new document
+	$("#button-create").live('click', function () {
 		storage.editDocument('make');
 	});
 
-	$("#button-cancel").click(function () {
+
+	// Cancel the editing or creation of a document
+	$("#button-cancel").live('click', function () {
 		storage.cancelDocument();
 	});
 
-	$("#button-submit").click(function () {
+
+	// Save changes to the document
+	$("#button-submit").live('click', function () {
 
 		var uuid = $("#uuid").val();
 
@@ -34,12 +40,10 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#button-update").click(function () {
-		storage.updateDocument($("#uuid").val(), $("#title").val(), $("#body").val());
-	});
-
-	$("#button-remove").click(function () {
+	// Remove a document from the list
+	$("#button-remove").live('click', function () {
 		storage.removeDocument($("#uuid").val());
+		storage.listDocument();
 	});
 
 });
