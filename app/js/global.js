@@ -7,15 +7,15 @@ $(document).ready(function() {
 
 	storage.listDocument();
 
-	$("#page-list ul li a").click(function () {
+	$("#page-list ul li a").live('click', function () {
 
-		var ID = $(this).attr("id").replace("item_","");
+		var uuid = $(this).attr("id").replace("item_","");
 
-		storage.editDocument(ID);
+		storage.editDocument(uuid);
 	});
 
 	$("#button-create").click(function () {
-		storage.editDocument();
+		storage.editDocument('make');
 	});
 
 	$("#button-cancel").click(function () {

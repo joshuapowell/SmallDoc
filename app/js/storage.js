@@ -132,18 +132,18 @@
 
 		// Make double sure we have a UUID or else our data will be lost
 		if (uuid == 'make') {
-			var uuid    = parseInt(localStorage.length);
-			var setKey  = documentNamespace + uuid;
+			var uuid_no = parseInt(localStorage.length);
+			var setKey  = documentNamespace + uuid_no;
 			var method  = 'created';
 			this.setMessage('We are creating a new document');
 		} else {
 			var setKey = uuid;
 			var method = 'updated';
-			this.setMessage('We are editing an existing document > ' + uuid);
+			this.setMessage('We are editing an existing document');
 		}
 
 		if (!documentTitle) {
-			documentTitle = "New Document " + uuid;
+			documentTitle = "New Document " + uuid_no;
 		}
 	
 		// Create a JSON object based on #title (documentTitle) & #body (documentBody)
@@ -167,7 +167,7 @@
 
 		// If the document is new, then make sure to display it in the Document List view
 		if (method == 'created') {
-			$(page[0] + " ul").append('<li><a id="item_' + uuid + '" href="#">' + documentTitle + '</a></li>');
+			$(page[0] + " ul").append('<li><a id="item_' + uuid_no + '" href="#">' + documentTitle + '</a></li>');
 		}
 
 		if (pages) {
@@ -222,7 +222,7 @@
 			$(pages).toggle();
 		}
 
-		if ( uuid ) {
+		if ( uuid != 'make' ) {
 			// Retrieve all our data from the localStorage object & parse JSON to Javascript Array
 			var note = jQuery.parseJSON(localStorage.getItem(documentNamespace + uuid));
 	
@@ -243,6 +243,7 @@
 
 			// Double check for empty form fields during creation
 			$('form input, form textarea, form select').val("");
+			$(field[2]).val('make');
 		}
 						
 	}

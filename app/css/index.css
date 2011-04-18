@@ -220,43 +220,8 @@ form textarea {
 form textarea:focus {
   outline: 0;
 }
-/* First Time Using App
--------------------------------------------------------------- */
-#first-time {
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  color: #999999;
-  margin: 0 10px 0 0;
-  padding: 40px 20px 90px;
-  text-align: center;
-}
-#first-time a {
-  color: #999999;
-  text-decoration: none;
-}
-#first-time span {
-  color: #AAAAAA;
-  text-shadow: 0px -1px 0px #2d3642;
-  font-size: 170px;
-}
-#first-time span a {
-  color: #AAAAAA;
-}
 /* Buttons
 -------------------------------------------------------------- */
-#button-add {
-  color: #FFFFFF;
-  display: block;
-  font-size: 29px;
-  padding: 0 10px;
-  position: absolute;
-  right: 12px;
-  text-decoration: none;
-  text-shadow: 0 -1px 0 #2d3642;
-  top: 3px;
-}
 .button {
   background-color: #385588;
   background-image: url("../img/backgrounds.png");
